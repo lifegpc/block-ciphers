@@ -97,7 +97,7 @@ impl<T: ByteOrder> Blowfish<T> {
         (a.wrapping_add(b) ^ c).wrapping_add(d)
     }
 
-    fn encrypt(&self, [mut l, mut r]: [u32; 2]) -> [u32; 2] {
+    pub fn encrypt(&self, [mut l, mut r]: [u32; 2]) -> [u32; 2] {
         for i in 0..8 {
             l ^= self.p[2 * i];
             r ^= self.round_function(l);
@@ -109,7 +109,7 @@ impl<T: ByteOrder> Blowfish<T> {
         [r, l]
     }
 
-    fn decrypt(&self, [mut l, mut r]: [u32; 2]) -> [u32; 2] {
+    pub fn decrypt(&self, [mut l, mut r]: [u32; 2]) -> [u32; 2] {
         for i in (1..9).rev() {
             l ^= self.p[2 * i + 1];
             r ^= self.round_function(l);
